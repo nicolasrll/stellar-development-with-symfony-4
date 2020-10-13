@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +32,17 @@ class ArticleController extends AbstractController
 
         return $this->render('article/show.html.twig', [
             'title' => ucwords(str_replace('-', ' ', $slug)),
-            'comments' => $comments
+            'comments' => $comments,
+            'slug' => $slug,
         ]);
+    }
+
+    /**
+     * @Route("/news/{slug}/heart", name="article_toggle_heart", methods={"POST"})
+     */
+    public function toggleArticleHeart($slug)
+    {
+        // TODO - actually heat/unheart the article
+        return new JsonResponse(['hearts' => rand(5, 100)]);
     }
 }
